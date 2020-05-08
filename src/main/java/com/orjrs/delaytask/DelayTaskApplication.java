@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DelaytaskApplication {
+public class DelayTaskApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DelaytaskApplication.class, args);
+        SpringApplication.run(DelayTaskApplication.class, args);
     }
 
 }
