@@ -30,7 +30,7 @@ public class LoopPullDelayedTaskImpl implements IDelayTask {
 
 
     @Override
-    public void addDelayTask(String topic, String key, long times, TimeUnit timeUnit) {
+    public void addDelayTask(String topic, String value, long times, TimeUnit timeUnit) {
         BoundZSetOperations<String, String> zset = stringRedisTemplate.boundZSetOps(topic);
         LocalDateTime now = LocalDateTime.now();
         long time = 0L;
@@ -43,8 +43,8 @@ public class LoopPullDelayedTaskImpl implements IDelayTask {
         } else if (timeUnit == TimeUnit.DAYS) {
             time = now.plusDays(times).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         }
-        boolean status = zset.add(key, time);
-        log.info("topic：{} , key：{} 添加延时任务{}", topic, key, status ? "成功" : "失败");
+        boolean status = zset.add(value, time);
+        log.info("topic(键key)：{} , value：{} 添加延时任务{}", topic, value, status ? "成功" : "失败");
         if (!status) {
             return;
         }
@@ -52,7 +52,7 @@ public class LoopPullDelayedTaskImpl implements IDelayTask {
         Thread t = loopPullDelayedTaskListener.getLoopPullDelayedTaskThread(BussinessTypeEnum.getByValue(topic));
         if (t.getState() == Thread.State.WAITING) {
             LockSupport.unpark(t);
-            log.info("topic：{} 线程已经从 waiting 中重新唤醒", topic);
+            log.info("topic(键key)：{} 线程已经从 waiting 中重新唤醒", topic);
         }
     }
 

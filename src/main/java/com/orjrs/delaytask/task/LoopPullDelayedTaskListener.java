@@ -43,7 +43,7 @@ public class LoopPullDelayedTaskListener {
     /** 空轮询数，空轮询数到了 300 那么线程将会被暂停 */
     private final int DEFAULT_EMPTY_POLL_COUNT = 300;
 
-    /** 导航具体业务实现类的网关  */
+    /** 导航具体业务实现类的网关 */
     @Autowired
     private BussinessGetWayService bussinessGetWayService;
 
@@ -73,6 +73,9 @@ public class LoopPullDelayedTaskListener {
         List<BussinessTypeEnum> businessTypeEnumList = BussinessTypeEnum.getAllBusinessTypeList();
         //循环遍历所有枚举对象，然后每一个枚举都对应着一个线程
         for (BussinessTypeEnum businessTypeEnum : businessTypeEnumList) {
+            if (businessTypeEnum.getValue().equals(BussinessTypeEnum.UN_KNOW.getValue())) {
+                continue;
+            }
             Thread thread = new Thread(new LoopPullDelayedTaskRunnable(businessTypeEnum));
             thread.start();
             //把这些线程一个一个的添加到容器中

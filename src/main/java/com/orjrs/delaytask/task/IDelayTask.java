@@ -14,12 +14,12 @@ public interface IDelayTask {
     /**
      * 添加任务
      *
-     * @param topic    主题
-     * @param key      键
+     * @param topic    主题，即使key
+     * @param value    key的值
      * @param time     time后延时添加任务
      * @param timeUnit 时间单位
      */
-    void addDelayTask(String topic, String key, long time, TimeUnit timeUnit);
+    void addDelayTask(String topic, String value, long time, TimeUnit timeUnit);
 
     /**
      * 删除任务

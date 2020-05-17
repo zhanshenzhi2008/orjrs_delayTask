@@ -35,7 +35,7 @@ public class AccountController {
     @RequestMapping("/account/addLoopPullDelayedTask")
     @ResponseBody
     public String addLoopPullDelayedTask() {
-        loopPullDelayedTaskImpl.addDelayTask(BussinessTypeEnum.OPEN_ACCOUNT.getValue(), "12345", 10, TimeUnit.SECONDS);
+        loopPullDelayedTaskImpl.addDelayTask(BussinessTypeEnum.ACCOUNT.getValue(), "12345", 10, TimeUnit.SECONDS);
         return "success";
     }
 }

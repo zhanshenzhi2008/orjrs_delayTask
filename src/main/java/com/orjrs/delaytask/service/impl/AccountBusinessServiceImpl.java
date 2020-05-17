@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Service
-@DelayTaskType(topic= BussinessTypeEnum.OPEN_ACCOUNT ,topicDesc = "账号任务")
+@DelayTaskType(topic= BussinessTypeEnum.ACCOUNT,topicDesc = "账号任务")
 public class AccountBusinessServiceImpl implements IDelayTaskBusinessService {
     @Override
     public boolean execute(String topic, String key, long time, IDelayTask IDelayTask) {

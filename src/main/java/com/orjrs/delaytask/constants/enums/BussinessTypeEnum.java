@@ -16,8 +16,8 @@ public enum BussinessTypeEnum {
     /** 未知 */
     UN_KNOW("unKnow"),
 
-    /** 开户 */
-    OPEN_ACCOUNT("openAccount");
+    /** 账户 */
+    ACCOUNT("account");
 
     /** 业务编码 */
     private String value;
