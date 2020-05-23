@@ -129,13 +129,14 @@ public class LoopPullDelayedTaskListener {
                 // 获取下标为 0 的 TypedTuple 对象
                 ZSetOperations.TypedTuple<String> tuple = (ZSetOperations.TypedTuple<String>) scoreSets.toArray()[0];
                 double score = tuple.getScore();
-                String value = (String) tuple.getValue();
+                String value = tuple.getValue();
                 LocalDateTime localDateTime = LocalDateTime.now();
                 long times = (localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
                 if (times >= score) {
                     log.info("已从 zSet 中取出，开始是执行 topic：" + topic + "，value：" + value);
-                    IDelayTaskBusinessService lisenter = bussinessGetWayService.route(topic);
-                    lisenter.execute(topic, value, times, loopPullDelayedTaskImpl);
+                    IDelayTaskBusinessService taskBusinessService = bussinessGetWayService.route(topic);
+                    //异步执行任务防止堵塞主线程
+                    executors.execute(() -> taskBusinessService.execute(topic, value, times, loopPullDelayedTaskImpl));
                     zSetOperations.remove(value);
                 }
             }
