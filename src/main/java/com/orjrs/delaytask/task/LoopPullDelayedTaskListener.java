@@ -121,8 +121,6 @@ public class LoopPullDelayedTaskListener {
                 }
                 log.info("topic：{}，延时任务已经在监控中……", topic);
                 loopCount = 0;
-                // 获取最顶端的任务 set，其实是一个数据
-                Set<String> rangeByScore = zSetOperations.rangeByScore(0, 0);
 
                 // 获取最顶端的任务 set，其实是一个数据
                 Set<ZSetOperations.TypedTuple<String>> scoreSets = zSetOperations.rangeWithScores(0, 0);
